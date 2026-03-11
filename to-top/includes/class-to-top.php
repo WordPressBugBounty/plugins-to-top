@@ -1,5 +1,9 @@
 <?php
 
+if (! defined('ABSPATH')) {
+	exit; // Exit if accessed directly
+}
+
 /**
  * The file that defines the core plugin class
  *
@@ -13,21 +17,9 @@
  * @subpackage To_Top/includes
  */
 
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0
- * @package    To_Top
- * @subpackage To_Top/includes
- * @author     Catch Plugins <info@catchplugins.com>
- */
-class To_Top {
+
+class To_Top
+{
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -66,7 +58,8 @@ class To_Top {
 	 *
 	 * @since    1.0
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 
 		$this->plugin_name = 'to-top';
 
@@ -76,7 +69,6 @@ class To_Top {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -95,34 +87,34 @@ class To_Top {
 	 * @since    1.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-to-top-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-to-top-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-to-top-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-to-top-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-to-top-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-to-top-admin.php';
 
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-to-top-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-to-top-public.php';
 
 		$this->loader = new To_Top_Loader();
-
 	}
 
 	/**
@@ -134,12 +126,12 @@ class To_Top {
 	 * @since    1.0
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$plugin_i18n = new To_Top_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
 	/**
@@ -149,25 +141,26 @@ class To_Top {
 	 * @since    1.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
-		$plugin_admin = new To_Top_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new To_Top_Admin($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_settings_menu' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
+		$this->loader->add_action('admin_menu', $plugin_admin, 'add_plugin_settings_menu');
+		$this->loader->add_action('admin_init', $plugin_admin, 'register_settings');
 
-		$this->loader->add_action( 'customize_register', $plugin_admin, 'customize_register' );
+		$this->loader->add_action('customize_register', $plugin_admin, 'customize_register');
 
-		$this->loader->add_filter( 'plugin_action_links', $plugin_admin, 'action_links', 10, 2 );
+		$this->loader->add_filter('plugin_action_links', $plugin_admin, 'action_links', 10, 2);
 
-		$this->loader->add_action( 'customize_controls_enqueue_scripts', $plugin_admin, 'customizer_enqueue_styles' );
+		$this->loader->add_action('customize_controls_enqueue_scripts', $plugin_admin, 'customizer_enqueue_styles');
 
-		$this->loader->add_action( 'customize_preview_init', $plugin_admin, 'customizer_enqueue_scripts' );
+		$this->loader->add_action('customize_preview_init', $plugin_admin, 'customizer_enqueue_scripts');
 
-		$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'add_plugin_meta_links', 10, 2 );
+		$this->loader->add_filter('plugin_row_meta', $plugin_admin, 'add_plugin_meta_links', 10, 2);
 	}
 
 	/**
@@ -177,20 +170,17 @@ class To_Top {
 	 * @since    1.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$plugin_public = new To_Top_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new To_Top_Public($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
-
-		$this->loader->add_action( 'wp_head', $plugin_public, 'custom_css', 101 );
-		$this->loader->add_action( 'admin_head', $plugin_public, 'custom_css' );
-
-		$this->loader->add_action( 'wp_footer', $plugin_public, 'public_display' );
-		$this->loader->add_action( 'admin_footer', $plugin_public, 'public_display' );
-		$this->loader->add_filter( 'script_loader_tag', $plugin_public, 'make_script_async', 10, 3 );
+		$this->loader->add_action('wp_footer', $plugin_public, 'public_display');
+		$this->loader->add_action('admin_footer', $plugin_public, 'public_display');
+		$this->loader->add_filter('script_loader_tag', $plugin_public, 'make_script_async', 10, 3);
 	}
 
 	/**
@@ -198,7 +188,8 @@ class To_Top {
 	 *
 	 * @since    1.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -209,7 +200,8 @@ class To_Top {
 	 * @since     1.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name()
+	{
 		return $this->plugin_name;
 	}
 
@@ -219,7 +211,8 @@ class To_Top {
 	 * @since     1.0
 	 * @return    To_Top_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -229,7 +222,8 @@ class To_Top {
 	 * @since     1.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
 	}
 }

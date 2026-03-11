@@ -1,13 +1,14 @@
 <?php
+
 /**
  * Plugin Name:       To Top
  * Plugin URI:        https://catchplugins.com/plugins/to-top/
  * Description:       To Top plugin allows the visitor as well as admin to easily scroll back to the top of the page, with fully customizable options and ability to use image.
  * Author:            Catch Plugins
  * Author URI:        https://catchplugins.com/
- * Version:           2.5.5
- * License:           GNU General Public License, version 3 (GPLv3)
- * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
+ * Version:           3.0
+ * License:           GPL-3.0+
+ * License URI: 	  http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       to-top
  * Domain Path:       languages
  *
@@ -33,31 +34,34 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (! defined('WPINC')) {
 	die;
 }
 
 // Define Version
-define( 'TOTOP_VERSION', '2.5.5' );
+if (! defined('TOTOP_VERSION')) {
+	define('TOTOP_VERSION', '3.0');
+}
 
 // The URL of the directory that contains the plugin
-if ( ! defined( 'TOTOP_URL' ) ) {
-	define( 'TOTOP_URL', plugin_dir_url( __FILE__ ) );
+if (! defined('TOTOP_URL')) {
+	define('TOTOP_URL', plugin_dir_url(__FILE__));
 }
 
 
 // The absolute path of the directory that contains the file
-if ( ! defined( 'TOTOP_PATH' ) ) {
-	define( 'TOTOP_PATH', plugin_dir_path( __FILE__ ) );
+if (! defined('TOTOP_PATH')) {
+	define('TOTOP_PATH', plugin_dir_path(__FILE__));
 }
 
 // Gets the path to a plugin file or directory, relative to the plugins directory, without the leading and trailing slashes.
-if ( ! defined( 'TOTOP_BASENAME' ) ) {
-	define( 'TOTOP_BASENAME', plugin_basename( __FILE__ ) );
+if (! defined('TOTOP_BASENAME')) {
+	define('TOTOP_BASENAME', plugin_basename(__FILE__));
 }
 
-function activate_to_top() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-to-top-activator.php';
+function activate_to_top()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-to-top-activator.php';
 	To_Top_Activator::activate();
 }
 
@@ -65,19 +69,20 @@ function activate_to_top() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-to-top-deactivator.php
  */
-function deactivate_to_top() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-to-top-deactivator.php';
+function deactivate_to_top()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-to-top-deactivator.php';
 	To_Top_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_to_top' );
-register_deactivation_hook( __FILE__, 'deactivate_to_top' );
+register_activation_hook(__FILE__, 'activate_to_top');
+register_deactivation_hook(__FILE__, 'deactivate_to_top');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-to-top.php';
+require plugin_dir_path(__FILE__) . 'includes/class-to-top.php';
 
 /**
  * Begins execution of the plugin.
@@ -88,11 +93,11 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-to-top.php';
  *
  * @since    1.0
  */
-function run_to_top() {
+function run_to_top()
+{
 
 	$plugin = new To_Top();
 	$plugin->run();
-
 }
 run_to_top();
 
@@ -101,11 +106,12 @@ run_to_top();
  *
  *  @since    1.0
  */
-function to_top_get_options() {
+function to_top_get_options()
+{
 	$defaults = to_top_default_options();
-	$options  = get_option( 'to_top_options', $defaults );
+	$options  = get_option('to_top_options', $defaults);
 
-	return wp_parse_args( $options, $defaults );
+	return wp_parse_args($options, $defaults);
 }
 
 /**
@@ -114,7 +120,8 @@ function to_top_get_options() {
  * @since     1.0
  * @return    array    default options.
  */
-function to_top_default_options( $option = null ) {
+function to_top_default_options($option = null)
+{
 	$default_options = array(
 		//Basic Settings
 		'scroll_offset'            => '100',
@@ -129,7 +136,7 @@ function to_top_default_options( $option = null ) {
 		'border_radius'            => '5',
 
 		//Image Settings
-		'image'                    => plugin_dir_url( __FILE__ ) . 'admin/images/default.png',
+		'image'                    => plugin_dir_url(__FILE__) . 'admin/images/default.png',
 		'image_width'              => '65',
 		'image_alt'                => '',
 
@@ -147,20 +154,20 @@ function to_top_default_options( $option = null ) {
 		'reset'                    => 0,
 	);
 
-	if ( null == $option ) {
-		return apply_filters( 'to_top_options', $default_options );
+	if (null == $option) {
+		return apply_filters('to_top_options', $default_options);
 	} else {
-		return $default_options[ $option ];
+		return $default_options[$option];
 	}
 }
 
 /* CTP tabs removal options */
-require plugin_dir_path( __FILE__ ) . 'admin/inc/ctp-tabs-removal.php';
+require plugin_dir_path(__FILE__) . 'admin/inc/ctp-tabs-removal.php';
 
 $ctp_options = ctp_get_options();
-if ( 1 == $ctp_options['theme_plugin_tabs'] ) {
+if (1 == $ctp_options['theme_plugin_tabs']) {
 	/* Adds Catch Themes tab in Add theme page and Themes by Catch Themes in Customizer's change theme option. */
-	if ( ! class_exists( 'CatchThemesThemePlugin' ) && ! function_exists( 'add_our_plugins_tab' ) ) {
-		require plugin_dir_path( __FILE__ ) . 'admin/inc/CatchThemesThemePlugin.php';
+	if (! class_exists('CatchThemesThemePlugin') && ! function_exists('add_our_plugins_tab')) {
+		require plugin_dir_path(__FILE__) . 'admin/inc/CatchThemesThemePlugin.php';
 	}
 }
