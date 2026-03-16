@@ -4,7 +4,7 @@ Donate link: https://catchplugins.com/plugins/to-top/
 Tags: to top, scroll up, arrow, button, icon, link to top, scroll, back to top, scroll to top, scroll top, scroll up, simple scroll to top, simple back to top, smooth scroll
 Requires at least: 5.9
 Tested up to: 7.0
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,12 +57,15 @@ You'll then see To Top dashboard from which you can enable or disable the button
 
 == Changelog ==
 
+= 3.1 (Released: March 16, 2026) =
+* Bug Fixed: Remove var_dump code
+
 = 3.0 (Released: March 11, 2026) =
 * Bug Fixed: WordPress.Security.EscapeOutput.OutputNotEscaped
 * Bug Fixed: missing_direct_file_access_protection
 * Bug Fixed: WordPress.WP.I18n.MissingArgDomain
 * Bug Fixed: outdated_tested_upto_header
-* Compatibility check up to version 7.0
+* Compatibility check up to version 6.9
 
 = 2.5.5 (Released: May 13, 2025) =
 * Compatibility check up to version 6.8

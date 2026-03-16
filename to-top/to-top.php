@@ -6,7 +6,7 @@
  * Description:       To Top plugin allows the visitor as well as admin to easily scroll back to the top of the page, with fully customizable options and ability to use image.
  * Author:            Catch Plugins
  * Author URI:        https://catchplugins.com/
- * Version:           3.0
+ * Version:           3.1
  * License:           GPL-3.0+
  * License URI: 	  http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       to-top
@@ -40,7 +40,7 @@ if (! defined('WPINC')) {
 
 // Define Version
 if (! defined('TOTOP_VERSION')) {
-	define('TOTOP_VERSION', '3.0');
+	define('TOTOP_VERSION', '3.1');
 }
 
 // The URL of the directory that contains the plugin

@@ -176,7 +176,6 @@ class To_Top_Public
 			return;
 		}
 
-		var_dump($inlineStyle);
 
 
 		if ('icon' == $option['style']) {
