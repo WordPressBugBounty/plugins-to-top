@@ -44,7 +44,7 @@ class CatchThemesThemePlugin
 		}
 
 		$args = wp_parse_args(
-			wp_unslash($_REQUEST['request']),
+			isset( $_REQUEST['request'] ) ? wp_unslash( $_REQUEST['request'] ) : array(), // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- AJAX handler replacing a core WP handler; nonce verified upstream by admin-ajax.php; data passed to themes_api() for further handling.
 			array(
 				'per_page' => 20,
 				'fields'   => array_merge(
@@ -71,7 +71,7 @@ class CatchThemesThemePlugin
 		$old_filter = isset($args['browse']) ? $args['browse'] : 'search';
 
 		/** This filter is documented in wp-admin/includes/class-wp-theme-install-list-table.php */
-		$args = apply_filters('install_themes_table_api_args_' . $old_filter, $args);
+		$args = apply_filters('install_themes_table_api_args_' . $old_filter, $args); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- core WordPress filter; must match WP core naming to maintain compatibility.
 
 		$api = themes_api('query_themes', $args);
 
@@ -147,7 +147,7 @@ class CatchThemesThemePlugin
 	{
 
 		if ('theme-install.php' === $hook_suffix) {
-			wp_enqueue_script('our-themes-script', plugin_dir_url(__FILE__) . '../js/our-themes.js', array('jquery'), '2018-05-16');
+			wp_enqueue_script('our-themes-script', plugin_dir_url(__FILE__) . '../js/our-themes.js', array('jquery'), '2018-05-16', true);
 		}
 	}
 
@@ -431,7 +431,7 @@ class CatchThemesThemePlugin
 		 * @param array                $args    List of arguments, such as page, search term, and tags to query for.
 		 * @param WP_Customize_Manager $manager Instance of Customize manager.
 		 */
-		$themes = apply_filters('customize_load_themes', $themes, $args, $wp_customize);
+		$themes = apply_filters('customize_load_themes', $themes, $args, $wp_customize); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- core WordPress filter; must match WP core naming to maintain compatibility.
 
 		wp_send_json_success($themes);
 	}
@@ -497,4 +497,4 @@ class CatchThemesThemePlugin
 	}
 }
 
-$catchthemes_theme_plugin = new CatchThemesThemePlugin();
+$catchthemes_theme_plugin = new CatchThemesThemePlugin(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- shared utility class instantiation; uses its own established naming convention.

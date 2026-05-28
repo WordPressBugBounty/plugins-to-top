@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 /**
  * Define the internationalization functionality
  *
@@ -24,11 +28,6 @@ class To_Top_i18n
 	 */
 	public function load_plugin_textdomain()
 	{
-
-		load_plugin_textdomain(
-			'to-top',
-			false,
-			dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
-		);
+		// Translations load automatically since WP 4.6; explicit call removed.
 	}
 }

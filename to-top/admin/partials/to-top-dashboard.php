@@ -20,7 +20,7 @@ if (! defined('ABSPATH')) {
 <!-- For Facebook -->
 <!-- <div id="fb-root"></div> -->
 
-<?php if (isset($_GET['settings-updated'])) { ?>
+<?php if (isset($_GET['settings-updated'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- standard WordPress settings-updated flag; value is never used. ?>
     <div id="message" class="notice updated fade">
         <p><strong><?php esc_html_e('Plugin Options Saved.', 'to-top') ?></strong></p>
     </div>
@@ -31,14 +31,14 @@ if (! defined('ABSPATH')) {
         <div class="content">
             <div id="customizer-message" class="update-nag">
                 <?php
-                $customizer_link = add_query_arg(
+                $customizer_link = add_query_arg( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- template-scope variable inside a required partial.
                     array(
                         'autofocus[panel]' => 'to_top_panel',
                     ),
                     admin_url('customize.php')
                 );
 
-                $settings_link = '<a href="' . esc_url($customizer_link) . '">' . esc_html__('Customizer', 'to-top') . '</a>';
+                $settings_link = '<a href="' . esc_url($customizer_link) . '">' . esc_html__('Customizer', 'to-top') . '</a>'; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- template-scope variable inside a required partial.
                 ?>
                 <p><strong><?php esc_html_e('Want Live Preview? Change the settings from ', 'to-top');
                             echo wp_kses_post($settings_link); ?></strong></p>
@@ -53,7 +53,7 @@ if (! defined('ABSPATH')) {
         <div class="content">
             <form method="post" action="options.php">
                 <?php settings_fields('to-top-group'); ?>
-                <?php $settings = to_top_get_options('to_top_options'); ?>
+                <?php $settings = to_top_get_options(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- template-scope variable inside a required partial. ?>
                 <div class="option-container">
                     <h3 class="option-toggle option-active"><a href="#"><?php esc_html_e('Basic Settings', 'to-top'); ?></a></h3>
                     <div class="option-content open">

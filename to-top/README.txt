@@ -1,10 +1,11 @@
 === To Top ===
 Contributors: catchplugins, catchthemes, sakinshrestha, pratikshrestha, maheshmaharjan, dreamsapana
 Donate link: https://catchplugins.com/plugins/to-top/
-Tags: to top, scroll up, arrow, button, icon, link to top, scroll, back to top, scroll to top, scroll top, scroll up, simple scroll to top, simple back to top, smooth scroll
+Tags: to top, scroll up, back to top, scroll to top, scroll up
 Requires at least: 5.9
+Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 3.1
+Stable tag: 3.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,6 +57,17 @@ You'll then see To Top dashboard from which you can enable or disable the button
 5. Reset Settings
 
 == Changelog ==
+
+= 3.2 (Released: May 27, 2026) =
+* Security: Admin settings input is now properly validated and sanitized before saving
+* Security: Plugin links in the admin area are now correctly escaped to prevent potential output issues
+* Bug Fixed: Plugin scripts and styles now load with the correct version number, ensuring browsers always fetch the latest files after an update
+* Bug Fixed: The To Top button script now loads in the page footer for improved page load performance
+* Bug Fixed: Admin settings output now correctly escaped, preventing any unintended display issues
+* Bug Fixed: Removed leftover debug code that could have caused unexpected output in some environments
+* Improved: Added direct file access protection to additional plugin files
+* Improved: Translation loading updated to use WordPress's built-in automatic system
+* Compatibility check up to WordPress 7.0
 
 = 3.1 (Released: March 16, 2026) =
 * Bug Fixed: Remove var_dump code

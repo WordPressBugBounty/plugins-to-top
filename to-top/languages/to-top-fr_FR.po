@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: To Top\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/tags/_s\n"
-"POT-Creation-Date: 2026-03-16 22:43+0545\n"
-"PO-Revision-Date: 2026-03-16 22:43+0545\n"
+"POT-Creation-Date: 2026-05-27 15:40+0545\n"
+"PO-Revision-Date: 2026-05-27 15:40+0545\n"
 "Last-Translator: Hubert Desrues <hubert.desrues@gmail.com>\n"
 "Language-Team: Français\n"
 "Language: fr_FR\n"
@@ -35,192 +35,192 @@ msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 "Vous ne disposez pas des autorisations suffisantes pour accéder à cette page."
 
-#: ../admin/class-to-top-admin.php:315
+#: ../admin/class-to-top-admin.php:316
 msgid "To Top Options"
 msgstr "En Haut (To Top), options"
 
-#: ../admin/class-to-top-admin.php:322
+#: ../admin/class-to-top-admin.php:323
 #: ../admin/partials/to-top-dashboard.php:58
 msgid "Basic Settings"
 msgstr "Réglages de base"
 
-#: ../admin/class-to-top-admin.php:333
+#: ../admin/class-to-top-admin.php:334
 #: ../admin/partials/to-top-dashboard.php:63
 msgid "Scroll Offset (px)"
 msgstr "Décalage de défilement (px)"
 
-#: ../admin/class-to-top-admin.php:334
+#: ../admin/class-to-top-admin.php:335
 #: ../admin/partials/to-top-dashboard.php:68
 msgid "Number of pixels to be scrolled before the button appears"
 msgstr "Nombre de pixels à faire défiler avant que le bouton n'apparaisse"
 
-#: ../admin/class-to-top-admin.php:354
+#: ../admin/class-to-top-admin.php:355
 #: ../admin/partials/to-top-dashboard.php:74
 msgid "Icon Opacity (%)"
 msgstr "Opacité de l'icône (%)"
 
-#: ../admin/class-to-top-admin.php:374
+#: ../admin/class-to-top-admin.php:375
 #: ../admin/partials/to-top-dashboard.php:83
 msgid "Style"
 msgstr "Style"
 
-#: ../admin/class-to-top-admin.php:379
+#: ../admin/class-to-top-admin.php:380
 #: ../admin/partials/to-top-dashboard.php:88
 msgid "Icon Using Dashicons"
 msgstr "Icônes Dashicons"
 
-#: ../admin/class-to-top-admin.php:380
+#: ../admin/class-to-top-admin.php:381
 #: ../admin/partials/to-top-dashboard.php:89
 msgid "Icon Using Genericons"
 msgstr "Icônes Genericons"
 
-#: ../admin/class-to-top-admin.php:381
+#: ../admin/class-to-top-admin.php:382
 #: ../admin/partials/to-top-dashboard.php:90
 msgid "Icon Using Font Awesome Icons"
 msgstr "Icônes Font Awesone Icons"
 
-#: ../admin/class-to-top-admin.php:382 ../admin/class-to-top-admin.php:481
+#: ../admin/class-to-top-admin.php:383 ../admin/class-to-top-admin.php:482
 #: ../admin/partials/to-top-dashboard.php:91
 #: ../admin/partials/to-top-dashboard.php:172
 msgid "Image"
 msgstr "Image"
 
-#: ../admin/class-to-top-admin.php:394
+#: ../admin/class-to-top-admin.php:395
 #: ../admin/partials/to-top-dashboard.php:107
 msgid "Select Icon Type"
 msgstr "Sélectionner le type d'icône"
 
-#: ../admin/class-to-top-admin.php:409
+#: ../admin/class-to-top-admin.php:410
 #: ../admin/partials/to-top-dashboard.php:124
 msgid "Icon Color"
 msgstr "Couleur de l'icône"
 
-#: ../admin/class-to-top-admin.php:424
+#: ../admin/class-to-top-admin.php:425
 #: ../admin/partials/to-top-dashboard.php:134
 msgid "Icon Background Color"
 msgstr "Couleur du fond de l'icône"
 
-#: ../admin/class-to-top-admin.php:439
+#: ../admin/class-to-top-admin.php:440
 #: ../admin/partials/to-top-dashboard.php:144
 msgid "Icon Size (px)"
 msgstr "Taille de l'icône (px)"
 
-#: ../admin/class-to-top-admin.php:459
+#: ../admin/class-to-top-admin.php:460
 #: ../admin/partials/to-top-dashboard.php:153
 msgid "Border Radius (%)"
 msgstr "Rayon de bordure (%)"
 
-#: ../admin/class-to-top-admin.php:460
+#: ../admin/class-to-top-admin.php:461
 #: ../admin/partials/to-top-dashboard.php:158
 msgid "0 will make the icon background square, 50 will make it a circle"
 msgstr "0 pour une icône sur fond carré, 50 pour une icône sur fond circulaire"
 
-#: ../admin/class-to-top-admin.php:497
+#: ../admin/class-to-top-admin.php:498
 #: ../admin/partials/to-top-dashboard.php:180
 msgid "Image Width (px)"
 msgstr "Largeur de l'image (px)"
 
-#: ../admin/class-to-top-admin.php:518
+#: ../admin/class-to-top-admin.php:519
 #: ../admin/partials/to-top-dashboard.php:189
 msgid "Image Alt"
 msgstr "Image alternative"
 
-#: ../admin/class-to-top-admin.php:533
+#: ../admin/class-to-top-admin.php:534
 #: ../admin/partials/to-top-dashboard.php:201
 msgid "Advanced Settings"
 msgstr "Réglages avancés"
 
-#: ../admin/class-to-top-admin.php:544
+#: ../admin/class-to-top-admin.php:545
 #: ../admin/partials/to-top-dashboard.php:206
 msgid "Location"
 msgstr "Emplacement"
 
-#: ../admin/class-to-top-admin.php:550
+#: ../admin/class-to-top-admin.php:551
 #: ../admin/partials/to-top-dashboard.php:211
 msgid "Bottom Right"
 msgstr "Bas droit"
 
-#: ../admin/class-to-top-admin.php:551
+#: ../admin/class-to-top-admin.php:552
 #: ../admin/partials/to-top-dashboard.php:212
 msgid "Bottom Left"
 msgstr "Bas gauche"
 
-#: ../admin/class-to-top-admin.php:552
+#: ../admin/class-to-top-admin.php:553
 #: ../admin/partials/to-top-dashboard.php:213
 msgid "Top Right"
 msgstr "En haut à droite"
 
-#: ../admin/class-to-top-admin.php:553
+#: ../admin/class-to-top-admin.php:554
 #: ../admin/partials/to-top-dashboard.php:214
 msgid "Top Left"
 msgstr "En haut à gauche"
 
-#: ../admin/class-to-top-admin.php:565
+#: ../admin/class-to-top-admin.php:566
 #: ../admin/partials/to-top-dashboard.php:221
 msgid "Margin X (px)"
 msgstr "Marge X (px)"
 
-#: ../admin/class-to-top-admin.php:585
+#: ../admin/class-to-top-admin.php:586
 #: ../admin/partials/to-top-dashboard.php:230
 msgid "Margin Y (px)"
 msgstr "Marge Y (px)"
 
-#: ../admin/class-to-top-admin.php:605
+#: ../admin/class-to-top-admin.php:606
 msgid "Check to show on WP-ADMIN"
 msgstr "Cochez pour afficher sur l'administration WP"
 
-#: ../admin/class-to-top-admin.php:606
+#: ../admin/class-to-top-admin.php:607
 #: ../admin/partials/to-top-dashboard.php:244
 msgid "Button will be shown on admin section"
 msgstr "Le bouton apparaît sur les pages  d'administration"
 
-#: ../admin/class-to-top-admin.php:620
+#: ../admin/class-to-top-admin.php:621
 msgid "Check to Enable Auto Hide"
 msgstr "Cochez pour activer le Masquage automatique"
 
-#: ../admin/class-to-top-admin.php:635
+#: ../admin/class-to-top-admin.php:636
 #: ../admin/partials/to-top-dashboard.php:260
 msgid "Auto Hide Time (secs)"
 msgstr "Temporisation du Masquage automatique (secondes)"
 
-#: ../admin/class-to-top-admin.php:636
+#: ../admin/class-to-top-admin.php:637
 #: ../admin/partials/to-top-dashboard.php:265
 msgid "Button will be auto hidden after this duration in seconds, if enabled"
 msgstr "Si activé le bouton disparaît automatiquement après quelques secondes "
 
-#: ../admin/class-to-top-admin.php:656
+#: ../admin/class-to-top-admin.php:657
 msgid "Check to Hide on Small Devices"
 msgstr "Cochez pour masquer sur les petits écrans"
 
-#: ../admin/class-to-top-admin.php:657
+#: ../admin/class-to-top-admin.php:658
 #: ../admin/partials/to-top-dashboard.php:276
 msgid "Button will be hidden on small devices when the width below matches"
 msgstr ""
 "Le bouton est caché sur les petits écrans quand la largeur ci-dessous est "
 "atteinte"
 
-#: ../admin/class-to-top-admin.php:671
+#: ../admin/class-to-top-admin.php:672
 #: ../admin/partials/to-top-dashboard.php:282
 msgid "Small Device Max Width (px)"
 msgstr "Largeur maximale du petit terminal (px)"
 
-#: ../admin/class-to-top-admin.php:672
+#: ../admin/class-to-top-admin.php:673
 #: ../admin/partials/to-top-dashboard.php:287
 msgid "Button will be hidden on devices with lesser or equal width"
 msgstr ""
 "Le bouton est caché sur les écrans dont la largeur est inférieures ou égale à"
 
-#: ../admin/class-to-top-admin.php:691
+#: ../admin/class-to-top-admin.php:692
 #: ../admin/partials/to-top-dashboard.php:297
 msgid "Reset Settings"
 msgstr "Réinitialiser les réglages"
 
-#: ../admin/class-to-top-admin.php:702
+#: ../admin/class-to-top-admin.php:703
 #: ../admin/partials/to-top-dashboard.php:306
 msgid "Check to Reset All Settings"
 msgstr "Cochez pour Reremettre à zéro tous les réglages"
 
-#: ../admin/class-to-top-admin.php:703
+#: ../admin/class-to-top-admin.php:704
 msgid ""
 "Caution: All data will be lost. Refresh the page after save to view full "
 "effects."

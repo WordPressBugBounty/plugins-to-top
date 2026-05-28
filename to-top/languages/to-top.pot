@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: To Top\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/tags/_s\n"
-"POT-Creation-Date: 2026-03-16 22:43+0545\n"
+"POT-Creation-Date: 2026-05-27 15:40+0545\n"
 "PO-Revision-Date: 2016-12-07 23:04-0500\n"
 "Last-Translator: Sakin Shrestha <info@catchplugins.com>\n"
 "Language-Team: Catch Plugins <info@catchplugins.com>\n"
@@ -34,189 +34,189 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:315
+#: ../admin/class-to-top-admin.php:316
 msgid "To Top Options"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:322
+#: ../admin/class-to-top-admin.php:323
 #: ../admin/partials/to-top-dashboard.php:58
 msgid "Basic Settings"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:333
+#: ../admin/class-to-top-admin.php:334
 #: ../admin/partials/to-top-dashboard.php:63
 msgid "Scroll Offset (px)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:334
+#: ../admin/class-to-top-admin.php:335
 #: ../admin/partials/to-top-dashboard.php:68
 msgid "Number of pixels to be scrolled before the button appears"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:354
+#: ../admin/class-to-top-admin.php:355
 #: ../admin/partials/to-top-dashboard.php:74
 msgid "Icon Opacity (%)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:374
+#: ../admin/class-to-top-admin.php:375
 #: ../admin/partials/to-top-dashboard.php:83
 msgid "Style"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:379
+#: ../admin/class-to-top-admin.php:380
 #: ../admin/partials/to-top-dashboard.php:88
 msgid "Icon Using Dashicons"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:380
+#: ../admin/class-to-top-admin.php:381
 #: ../admin/partials/to-top-dashboard.php:89
 msgid "Icon Using Genericons"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:381
+#: ../admin/class-to-top-admin.php:382
 #: ../admin/partials/to-top-dashboard.php:90
 msgid "Icon Using Font Awesome Icons"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:382 ../admin/class-to-top-admin.php:481
+#: ../admin/class-to-top-admin.php:383 ../admin/class-to-top-admin.php:482
 #: ../admin/partials/to-top-dashboard.php:91
 #: ../admin/partials/to-top-dashboard.php:172
 msgid "Image"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:394
+#: ../admin/class-to-top-admin.php:395
 #: ../admin/partials/to-top-dashboard.php:107
 msgid "Select Icon Type"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:409
+#: ../admin/class-to-top-admin.php:410
 #: ../admin/partials/to-top-dashboard.php:124
 msgid "Icon Color"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:424
+#: ../admin/class-to-top-admin.php:425
 #: ../admin/partials/to-top-dashboard.php:134
 msgid "Icon Background Color"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:439
+#: ../admin/class-to-top-admin.php:440
 #: ../admin/partials/to-top-dashboard.php:144
 msgid "Icon Size (px)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:459
+#: ../admin/class-to-top-admin.php:460
 #: ../admin/partials/to-top-dashboard.php:153
 msgid "Border Radius (%)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:460
+#: ../admin/class-to-top-admin.php:461
 #: ../admin/partials/to-top-dashboard.php:158
 msgid "0 will make the icon background square, 50 will make it a circle"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:497
+#: ../admin/class-to-top-admin.php:498
 #: ../admin/partials/to-top-dashboard.php:180
 msgid "Image Width (px)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:518
+#: ../admin/class-to-top-admin.php:519
 #: ../admin/partials/to-top-dashboard.php:189
 msgid "Image Alt"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:533
+#: ../admin/class-to-top-admin.php:534
 #: ../admin/partials/to-top-dashboard.php:201
 msgid "Advanced Settings"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:544
+#: ../admin/class-to-top-admin.php:545
 #: ../admin/partials/to-top-dashboard.php:206
 msgid "Location"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:550
+#: ../admin/class-to-top-admin.php:551
 #: ../admin/partials/to-top-dashboard.php:211
 msgid "Bottom Right"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:551
+#: ../admin/class-to-top-admin.php:552
 #: ../admin/partials/to-top-dashboard.php:212
 msgid "Bottom Left"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:552
+#: ../admin/class-to-top-admin.php:553
 #: ../admin/partials/to-top-dashboard.php:213
 msgid "Top Right"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:553
+#: ../admin/class-to-top-admin.php:554
 #: ../admin/partials/to-top-dashboard.php:214
 msgid "Top Left"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:565
+#: ../admin/class-to-top-admin.php:566
 #: ../admin/partials/to-top-dashboard.php:221
 msgid "Margin X (px)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:585
+#: ../admin/class-to-top-admin.php:586
 #: ../admin/partials/to-top-dashboard.php:230
 msgid "Margin Y (px)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:605
+#: ../admin/class-to-top-admin.php:606
 msgid "Check to show on WP-ADMIN"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:606
+#: ../admin/class-to-top-admin.php:607
 #: ../admin/partials/to-top-dashboard.php:244
 msgid "Button will be shown on admin section"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:620
+#: ../admin/class-to-top-admin.php:621
 msgid "Check to Enable Auto Hide"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:635
+#: ../admin/class-to-top-admin.php:636
 #: ../admin/partials/to-top-dashboard.php:260
 msgid "Auto Hide Time (secs)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:636
+#: ../admin/class-to-top-admin.php:637
 #: ../admin/partials/to-top-dashboard.php:265
 msgid "Button will be auto hidden after this duration in seconds, if enabled"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:656
+#: ../admin/class-to-top-admin.php:657
 msgid "Check to Hide on Small Devices"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:657
+#: ../admin/class-to-top-admin.php:658
 #: ../admin/partials/to-top-dashboard.php:276
 msgid "Button will be hidden on small devices when the width below matches"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:671
+#: ../admin/class-to-top-admin.php:672
 #: ../admin/partials/to-top-dashboard.php:282
 msgid "Small Device Max Width (px)"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:672
+#: ../admin/class-to-top-admin.php:673
 #: ../admin/partials/to-top-dashboard.php:287
 msgid "Button will be hidden on devices with lesser or equal width"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:691
+#: ../admin/class-to-top-admin.php:692
 #: ../admin/partials/to-top-dashboard.php:297
 msgid "Reset Settings"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:702
+#: ../admin/class-to-top-admin.php:703
 #: ../admin/partials/to-top-dashboard.php:306
 msgid "Check to Reset All Settings"
 msgstr ""
 
-#: ../admin/class-to-top-admin.php:703
+#: ../admin/class-to-top-admin.php:704
 msgid ""
 "Caution: All data will be lost. Refresh the page after save to view full "
 "effects."

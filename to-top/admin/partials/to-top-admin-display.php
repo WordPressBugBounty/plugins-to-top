@@ -36,10 +36,10 @@ if (! defined('ABSPATH')) {
                                     <td>
                                         <?php echo esc_html__('Turn On Catch Themes & Catch Plugin tabs', 'to-top');  ?>
                                     </td>
-                                    <td><?php //echo '<pre>'; print_r($settings); echo '</pre>';
-                                        $ctp_options = ctp_get_options()
+                                    <td><?php
+                                        $ctp_options = ctp_get_options(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- template-scope variable inside a required partial.
                                         ?>
-                                        <div class="module-header <?php echo $ctp_options['theme_plugin_tabs'] ? 'active' : 'inactive'; ?>">
+                                        <div class="module-header <?php echo esc_attr( $ctp_options['theme_plugin_tabs'] ? 'active' : 'inactive' ); ?>">
                                             <div class="switch">
                                                 <input type="hidden" name="ctp_tabs_nonce" id="ctp_tabs_nonce" value="<?php echo esc_attr(wp_create_nonce('ctp_tabs_nonce')); ?>" />
                                                 <input type="checkbox" id="ctp_options[theme_plugin_tabs]" class="ctp-switch" rel="theme_plugin_tabs" <?php checked(true, $ctp_options['theme_plugin_tabs']); ?>>
