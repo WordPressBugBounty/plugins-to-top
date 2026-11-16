@@ -1,11 +1,11 @@
 === To Top ===
 Contributors: catchplugins, catchthemes, sakinshrestha, pratikshrestha, maheshmaharjan, dreamsapana
 Donate link: https://catchplugins.com/plugins/to-top/
-Tags: to top, scroll up, back to top, scroll to top, scroll up
+Tags: to top, scroll up, back to top, scroll to top
 Requires at least: 5.9
 Requires PHP: 7.4
-Tested up to: 7.0
-Stable tag: 3.2
+Tested up to: 7.1
+Stable tag: 3.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,6 +57,19 @@ You'll then see To Top dashboard from which you can enable or disable the button
 5. Reset Settings
 
 == Changelog ==
+
+= 3.3 (Released: November 16, 2026) =
+* Bug Fixed: Settings on the To Top Settings page could not be saved at all
+* Bug Fixed: Show on WP-ADMIN, Auto Hide and Hide on Small Devices could never be turned on
+* Bug Fixed: Button no longer ignores mouse hover, so the opacity change and auto hide work again
+* Bug Fixed: Custom button images with no protocol in their address no longer disappear
+* Bug Fixed: Customizer icon dropdown now shows the icon you actually saved
+* Bug Fixed: jQuery script error in the admin area, reported in admin/js/to-top-admin.js after the CPT switch section
+* Bug Fixed: Removed the unused Facebook and Twitter scripts that were loaded from outside servers in the admin area
+* Improved: Button script now loads in the page footer and no longer races with jQuery
+* Improved: Saved settings are validated against the allowed values before being stored
+* Improved: Uninstall now removes all of the plugin's options, including on multisite
+* Compatibility check up to WordPress 7.1
 
 = 3.2 (Released: May 27, 2026) =
 * Security: Admin settings input is now properly validated and sanitized before saving

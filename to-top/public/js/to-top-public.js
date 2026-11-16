@@ -57,11 +57,13 @@
             $(document).on( "scroll", fnScroll);
         }
 
-        container.on( "hover", function() {
+        container
+            .on( "mouseenter", function() {
                 clearTimeout(hideEventID);
                 mouse_over = true;
                 $(this).css("opacity", 1);
-            }, function() {
+            })
+            .on( "mouseleave", function() {
                 $(this).css("opacity", parseFloat(data.icon_opacity/100));
                 mouse_over = false;
                 fnHideEvent();

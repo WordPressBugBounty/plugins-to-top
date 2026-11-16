@@ -89,15 +89,6 @@ class To_Top_Public
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/to-top-public.css', $dependency, $this->version, 'all');
 	}
 
-	function make_script_async($tag, $handle, $src)
-	{
-		if ($this->plugin_name != $handle) {
-			return $tag;
-		}
-
-		return str_replace('<script', '<script async', $tag);
-	}
-
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
@@ -120,7 +111,8 @@ class To_Top_Public
 
 		$option = to_top_get_options();
 
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/to-top-public.js', array('jquery'), $this->version, false);
+		// Loaded in the footer; it must never be async because it depends on jQuery.
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/to-top-public.js', array('jquery'), $this->version, true);
 
 		// Localize the script with new data
 		wp_localize_script($this->plugin_name, 'to_top_options', $option);
@@ -131,6 +123,10 @@ class To_Top_Public
 		$option = to_top_get_options();
 		$default = to_top_default_options();
 
+		if (is_admin() && empty($option['show_on_admin'])) {
+			//Bail early if in admin and show on admin is disabled
+			return;
+		}
 
 		$inlineStyle = '';
 		if ('image' == $option['style']) {
@@ -162,24 +158,21 @@ class To_Top_Public
 		}
 
 		if ($default['location'] != $option['location'] || $default['margin_x'] != $option['margin_x'] || $default['margin_y'] != $option['margin_y']) {
-			$offset = explode('-',  $option['location']);
-			$offset1 = $offset[0];
-			$offset2 = $offset[1];
+			$offset = explode('-', (string) $option['location']);
 
-			$inlineStyle .= esc_attr($offset2) . ':' . esc_attr($option['margin_x']) . 'px;';
-			$inlineStyle .= esc_attr($offset1) . ':' . esc_attr($option['margin_y']) . 'px;';
-		}
+			// Fall back to the default when the stored location is not a valid "vertical-horizontal" pair.
+			if (2 !== count($offset)) {
+				$offset = explode('-', $default['location']);
+			}
 
-
-		if (is_admin() && !$option['show_on_admin']) {
-			//Bail early if in admin and show on admin is disabled
-			return;
+			$inlineStyle .= sanitize_key($offset[1]) . ':' . absint($option['margin_x']) . 'px;';
+			$inlineStyle .= sanitize_key($offset[0]) . ':' . absint($option['margin_y']) . 'px;';
 		}
 
 
 
 		if ('icon' == $option['style']) {
-			echo '<span aria-hidden="true" id="to_top_scrollup" class="dashicons ' . esc_attr($option['icon_type']) . '" style="' . esc_html($inlineStyle) . '"><span class="screen-reader-text">' . esc_html__('Scroll Up', 'to-top') . '</span></span>';
+			echo '<span aria-hidden="true" id="to_top_scrollup" class="dashicons ' . esc_attr($option['icon_type']) . '" style="' . esc_attr($inlineStyle) . '"><span class="screen-reader-text">' . esc_html__('Scroll Up', 'to-top') . '</span></span>';
 		} else if ('genericon-icon' == $option['style']) {
 			if ('dashicons-arrow-up' == $option['icon_type']) {
 				$class = 'genericon genericon-uparrow';
@@ -189,7 +182,7 @@ class To_Top_Public
 				$class = 'genericon genericon-collapse';
 			}
 
-			echo '<span aria-hidden="true" id="to_top_scrollup" class="' . esc_attr($class) . '" style="' . esc_html($inlineStyle) . '"><span class="screen-reader-text">' . esc_html__('Scroll Up', 'to-top') . '</span></span>';
+			echo '<span aria-hidden="true" id="to_top_scrollup" class="' . esc_attr($class) . '" style="' . esc_attr($inlineStyle) . '"><span class="screen-reader-text">' . esc_html__('Scroll Up', 'to-top') . '</span></span>';
 		} else if ('font-awesome-icon' == $option['style']) {
 			if ('dashicons-arrow-up' == $option['icon_type']) {
 				$class = 'fa fa-caret-up';
@@ -199,18 +192,14 @@ class To_Top_Public
 				$class = 'fa fa-angle-up';
 			}
 
-			echo '<span aria-hidden="true" id="to_top_scrollup" class="' .  esc_attr($class) . '" style="' . esc_html($inlineStyle) . '"><span class="screen-reader-text">' . esc_html__('Scroll Up', 'to-top') . '</span></span>';
+			echo '<span aria-hidden="true" id="to_top_scrollup" class="' .  esc_attr($class) . '" style="' . esc_attr($inlineStyle) . '"><span class="screen-reader-text">' . esc_html__('Scroll Up', 'to-top') . '</span></span>';
 		} else {
 			if ('' != $option['image']) {
 				/**
-				 * make image link protocolless
-				 * http:// or https:// to //
+				 * Make the image link protocol relative (http:// or https:// to //)
+				 * without mangling URLs that have no scheme or that contain other colons.
 				 */
-				$image = explode(':', $option['image']);
-
-				unset($image[0]);
-
-				$image = implode('', $image);
+				$image = set_url_scheme($option['image'], 'relative');
 
 				echo '<span id="to_top_scrollup"><img alt="' . esc_attr($option['image_alt']) . '" src="' . esc_url($image) . '"/></span>';
 			}

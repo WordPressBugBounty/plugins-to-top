@@ -29,8 +29,11 @@ class To_Top_Custom_Icons extends WP_Customize_Control
 
 		$output .= '<select ' . $this->get_link() . ' id="to-top-customizer-icon-type">';
 
+		$current = $this->value();
+
 		foreach ($this->icon_options as $key => $value) {
-			$output .= '<option class="dashicons ' . esc_attr($key) . '" value="' . esc_attr($key) . '">';
+			// Without this the dropdown always falls back to the first option.
+			$output .= '<option class="dashicons ' . esc_attr($key) . '" value="' . esc_attr($key) . '"' . selected($current, $key, false) . '>';
 			$output .= esc_html($value);
 			$output .= '</option>';
 		}

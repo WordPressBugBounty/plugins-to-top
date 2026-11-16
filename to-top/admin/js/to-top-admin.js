@@ -183,7 +183,7 @@ jQuery(function ($) {
 });
 
 jQuery(function ($) {
-	/* CPT switch */
+	/* CTP switch */
 	$('.ctp-switch').on('click', function () {
 		var loader = $(this).parent().next();
 
@@ -212,41 +212,5 @@ jQuery(function ($) {
 			loader.hide();
 		});
 	});
-	/* CPT switch End */
-})(
-	/**
-	 * Facebook Script
-	 */
-	(function (d, s, id) {
-		var js,
-			fjs = d.getElementsByTagName(s)[0];
-
-		if (d.getElementById(id)) return;
-
-		js = d.createElement(s);
-		js.id = id;
-
-		js.src =
-			'//connect.facebook.net/en_US/all.js#xfbml=1&appId=276203972392824';
-
-		fjs.parentNode.insertBefore(js, fjs);
-	})(document, 'script', 'facebook-jssdk')
-);
-
-/**
- * Twitter Script
- */
-!(function (d, s, id) {
-	var js,
-		fjs = d.getElementsByTagName(s)[0];
-
-	if (!d.getElementById(id)) {
-		js = d.createElement(s);
-
-		js.id = id;
-
-		js.src = '//platform.twitter.com/widgets.js';
-
-		fjs.parentNode.insertBefore(js, fjs);
-	}
-})(document, 'script', 'twitter-wjs');
+	/* CTP switch End */
+});

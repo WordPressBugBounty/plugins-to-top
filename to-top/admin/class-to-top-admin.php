@@ -105,15 +105,15 @@ class To_Top_Admin
 		if ('toplevel_page_to-top' === $hook) {
 			wp_enqueue_media();
 
-			wp_enqueue_script('minHeight', plugin_dir_url(__FILE__) . 'js/jquery.matchHeight.min.js', array('jquery'), $this->version, false);
-			wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/to-top-admin.js', array('jquery', 'wp-color-picker'), $this->version, false);
+			wp_enqueue_script('minHeight', plugin_dir_url(__FILE__) . 'js/jquery.matchHeight.min.js', array('jquery'), $this->version, true);
+			wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/to-top-admin.js', array('jquery', 'wp-color-picker', 'minHeight'), $this->version, true);
 		}
 
 		$option = to_top_get_options();
 
 		if ($option['show_on_admin']) {
 			//Load JS if  To Top is enabled on admin
-			wp_enqueue_script($this->plugin_name . '-public', plugin_dir_url(__FILE__) . '../public/js/to-top-public.js', array('jquery'), $this->version, false);
+			wp_enqueue_script($this->plugin_name . '-public', plugin_dir_url(__FILE__) . '../public/js/to-top-public.js', array('jquery'), $this->version, true);
 
 			// Localize the script with new data
 			wp_localize_script($this->plugin_name . '-public', 'to_top_options', $option);
@@ -122,7 +122,7 @@ class To_Top_Admin
 
 	public function action_links($links, $file)
 	{
-		if ($file === $this->plugin_name . '/' . $this->plugin_name . '.php') {
+		if (TOTOP_BASENAME === $file) {
 			$customizer_link = add_query_arg(
 				array(
 					'autofocus[panel]' => 'to_top_panel',
@@ -177,8 +177,16 @@ class To_Top_Admin
 	function add_plugin_meta_links($meta_fields, $file)
 	{
 		if (TOTOP_BASENAME === $file) {
-			$meta_fields[] = "<a href='" . esc_url( 'https://catchplugins.com/support-forum/forum/to-top/' ) . "' target='_blank'>Support Forum</a>";
-			$meta_fields[] = "<a href='" . esc_url( 'https://wordpress.org/support/plugin/to-top/reviews#new-post' ) . "' target='_blank' title='Rate'>
+			$meta_fields[] = "<a href='" . esc_url( 'https://catchplugins.com/support-forum/forum/to-top/' ) . "' target='_blank'>" . esc_html__('Support Forum', 'to-top') . "</a>";
+
+			// The stars colour is hardcoded; the style ships inside the returned markup so nothing is echoed from the filter.
+			$meta_fields[] = "<style>"
+				. ".ct-rate-stars{display:inline-block;color:#ffb900;position:relative;top:3px;}"
+				. ".ct-rate-stars svg{fill:#ffb900;}"
+				. ".ct-rate-stars svg:hover{fill:#ffb900;}"
+				. ".ct-rate-stars svg:hover ~ svg{fill:none;}"
+				. "</style>"
+				. "<a href='" . esc_url( 'https://wordpress.org/support/plugin/to-top/reviews#new-post' ) . "' target='_blank' title='" . esc_attr__('Rate', 'to-top') . "'>
 			        <i class='ct-rate-stars'>"
 				. "<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg>"
 				. "<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg>"
@@ -186,17 +194,6 @@ class To_Top_Admin
 				. "<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg>"
 				. "<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg>"
 				. "</i></a>";
-
-			$stars_color = "#ffb900";
-
-			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is hardcoded; the only dynamic value ($stars_color) is escaped via esc_html().
-			echo "<style>"
-				. ".ct-rate-stars{display:inline-block;color:" . esc_html($stars_color) . ";position:relative;top:3px;}"
-				. ".ct-rate-stars svg{fill:" . esc_html($stars_color) . ";}"
-				. ".ct-rate-stars svg:hover{fill:" . esc_html($stars_color) . "}"
-				. ".ct-rate-stars svg:hover ~ svg{fill:none;}"
-				. "</style>";
-			// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		return $meta_fields;
@@ -209,11 +206,15 @@ class To_Top_Admin
 	 */
 	public function sanitize_callback($input)
 	{
+		$input    = (array) $input;
+		$defaults = to_top_default_options();
 
-		if (isset($input['reset']) && $input['reset']) {
+		if (! empty($input['reset'])) {
 			//If reset, restore defaults
-			return to_top_default_options();
+			return $defaults;
 		}
+
+		$input['reset'] = 0;
 
 		//Basic Settings
 		if (isset($input['status'])) {
@@ -225,7 +226,9 @@ class To_Top_Admin
 		}
 
 		if (isset($input['style'])) {
-			$input['style']         = sanitize_key($input['style']);
+			$allowed_styles  = array('icon', 'genericon-icon', 'font-awesome-icon', 'image');
+			$style           = sanitize_key($input['style']);
+			$input['style']  = in_array($style, $allowed_styles, true) ? $style : $defaults['style'];
 		}
 
 		//Icon Settings
@@ -233,12 +236,20 @@ class To_Top_Admin
 			$input['icon_opacity']  = absint($input['icon_opacity']);
 		}
 
+		if (isset($input['icon_type'])) {
+			$allowed_icons       = array('dashicons-arrow-up', 'dashicons-arrow-up-alt', 'dashicons-arrow-up-alt2');
+			$icon_type           = sanitize_key($input['icon_type']);
+			$input['icon_type']  = in_array($icon_type, $allowed_icons, true) ? $icon_type : $defaults['icon_type'];
+		}
+
 		if (isset($input['icon_color'])) {
-			$input['icon_color'] 	= (empty($input['icon_color']) || !preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|',  $input['icon_color'])) ? '' :  $input['icon_color'];
+			$icon_color          = sanitize_hex_color($input['icon_color']);
+			$input['icon_color'] = (null === $icon_color || '' === $icon_color) ? $defaults['icon_color'] : $icon_color;
 		}
 
 		if (isset($input['icon_bg_color'])) {
-			$input['icon_bg_color'] = (empty($input['icon_bg_color']) || !preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|',  $input['icon_bg_color'])) ? '' :  $input['icon_bg_color'];
+			$icon_bg_color          = sanitize_hex_color($input['icon_bg_color']);
+			$input['icon_bg_color'] = (null === $icon_bg_color || '' === $icon_bg_color) ? $defaults['icon_bg_color'] : $icon_bg_color;
 		}
 
 		if (isset($input['icon_size'])) {
@@ -264,7 +275,9 @@ class To_Top_Admin
 
 		//Advanced Settings
 		if (isset($input['location'])) {
-			$input['location']      = sanitize_key($input['location']);
+			$allowed_locations = array('bottom-right', 'bottom-left', 'top-right', 'top-left');
+			$location          = sanitize_key($input['location']);
+			$input['location'] = in_array($location, $allowed_locations, true) ? $location : $defaults['location'];
 		}
 
 		if (isset($input['margin_x'])) {
@@ -275,12 +288,16 @@ class To_Top_Admin
 			$input['margin_y']      = absint($input['margin_y']);
 		}
 
+		/*
+		 * Checkboxes arrive as the string "1" (settings form) or "1"/"" (customizer),
+		 * so compare loosely and store a plain 0/1.
+		 */
 		if (isset($input['show_on_admin'])) {
-			$input['show_on_admin'] = ((isset($input['show_on_admin']) && true === $input['show_on_admin']) ? true : false);
+			$input['show_on_admin'] = empty($input['show_on_admin']) ? 0 : 1;
 		}
 
 		if (isset($input['enable_autohide'])) {
-			$input['enable_autohide'] = ((isset($input['enable_autohide']) && true === $input['enable_autohide']) ? true : false);
+			$input['enable_autohide'] = empty($input['enable_autohide']) ? 0 : 1;
 		}
 
 		if (isset($input['autohide_time'])) {
@@ -288,7 +305,7 @@ class To_Top_Admin
 		}
 
 		if (isset($input['enable_hide_small_device'])) {
-			$input['enable_hide_small_device'] = ((isset($input['enable_hide_small_device']) && true === $input['enable_hide_small_device']) ? true : false);
+			$input['enable_hide_small_device'] = empty($input['enable_hide_small_device']) ? 0 : 1;
 		}
 
 		if (isset($input['small_device_max_width'])) {
@@ -742,8 +759,8 @@ class To_Top_Admin
 	 */
 	function sanitize_checkbox($checked)
 	{
-		// Boolean check.
-		return ((isset($checked) && true === $checked) ? true : false);
+		// Checkboxes may arrive as true, 1 or "1", so treat anything non-empty as checked.
+		return empty($checked) ? 0 : 1;
 	}
 
 	/**

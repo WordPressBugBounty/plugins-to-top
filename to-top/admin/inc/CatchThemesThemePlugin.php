@@ -8,7 +8,8 @@ class CatchThemesThemePlugin
 {
 	public function __construct()
 	{
-		remove_action('wp_ajax_query-themes', array($this, 'wp_ajax_query_themes'), 1);
+		// Core registers its own handler as a plain function name, not as a method.
+		remove_action('wp_ajax_query-themes', 'wp_ajax_query_themes', 1);
 		add_action('wp_ajax_query-themes', array($this, 'wp_ajax_custom_query_themes'), 1);
 
 		add_action('admin_enqueue_scripts', array($this, 'our_themes_script'));
@@ -147,7 +148,15 @@ class CatchThemesThemePlugin
 	{
 
 		if ('theme-install.php' === $hook_suffix) {
-			wp_enqueue_script('our-themes-script', plugin_dir_url(__FILE__) . '../js/our-themes.js', array('jquery'), '2018-05-16', true);
+			wp_enqueue_script('our-themes-script', plugin_dir_url(__FILE__) . '../js/our-themes.js', array('jquery'), TOTOP_VERSION, true);
+
+			wp_localize_script(
+				'our-themes-script',
+				'catchThemesTab',
+				array(
+					'label' => __('Catch Themes', 'to-top'),
+				)
+			);
 		}
 	}
 
@@ -179,6 +188,8 @@ class CatchThemesThemePlugin
 	 */
 	public function handle_load_themes_request()
 	{
+		global $wp_customize;
+
 		check_ajax_referer('switch_themes', 'nonce');
 		if (! current_user_can('switch_themes')) {
 			wp_die(-1);
@@ -187,9 +198,10 @@ class CatchThemesThemePlugin
 		if (empty($_POST['theme_action'])) {
 			wp_send_json_error('missing_theme_action');
 		}
-		$theme_action = sanitize_key($_POST['theme_action']);
-		$themes       = array();
-		$args         = array();
+		$theme_action     = sanitize_key(wp_unslash($_POST['theme_action']));
+		$customized_theme = isset($_POST['customized_theme']) ? sanitize_text_field(wp_unslash($_POST['customized_theme'])) : '';
+		$themes           = array();
+		$args             = array();
 
 		// Define query filters based on user input.
 		if (! array_key_exists('search', $_POST)) {
@@ -207,7 +219,7 @@ class CatchThemesThemePlugin
 		if (! array_key_exists('page', $_POST)) {
 			$args['page'] = 1;
 		} else {
-			$args['page'] = absint($_POST['page']);
+			$args['page'] = absint(wp_unslash($_POST['page']));
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/theme.php';
@@ -218,7 +230,7 @@ class CatchThemesThemePlugin
 			$themes = array('themes' => wp_prepare_themes_for_js());
 			foreach ($themes['themes'] as &$theme) {
 				$theme['type']   = 'installed';
-				$theme['active'] = (isset($_POST['customized_theme']) && $_POST['customized_theme'] === $theme['id']);
+				$theme['active'] = ('' !== $customized_theme && $customized_theme === $theme['id']);
 			}
 		} elseif ('catchthemes' === $theme_action) {
 
@@ -299,7 +311,7 @@ class CatchThemesThemePlugin
 				}
 
 				// Set active based on customized theme.
-				$theme->active = (isset($_POST['customized_theme']) && $_POST['customized_theme'] === $theme->slug);
+				$theme->active = ('' !== $customized_theme && $customized_theme === $theme->slug);
 
 				// Map available theme properties to installed theme properties.
 				$theme->id            = $theme->slug;
@@ -394,7 +406,7 @@ class CatchThemesThemePlugin
 				}
 
 				// Set active based on customized theme.
-				$theme->active = (isset($_POST['customized_theme']) && $_POST['customized_theme'] === $theme->slug);
+				$theme->active = ('' !== $customized_theme && $customized_theme === $theme->slug);
 
 				// Map available theme properties to installed theme properties.
 				$theme->id            = $theme->slug;

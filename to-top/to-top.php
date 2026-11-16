@@ -6,13 +6,15 @@
  * Description:       To Top plugin allows the visitor as well as admin to easily scroll back to the top of the page, with fully customizable options and ability to use image.
  * Author:            Catch Plugins
  * Author URI:        https://catchplugins.com/
- * Version:           3.2
+ * Version:           3.3
+ * Requires at least: 5.9
+ * Requires PHP:      7.4
  * License:           GPL-3.0+
  * License URI: 	  http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       to-top
  * Domain Path:       /languages
  *
- * Copyright (C) 2012-2018 Catch Plugins, (info@catchplugins.com)
+ * Copyright (C) 2012-2026 Catch Plugins, (info@catchplugins.com)
  *
  * To Top Plugin is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +32,7 @@
  * @package To_Top
  * @link catchplugins.com
  * @author Catch Plugins
- * @version 3.2
+ * @version 3.3
  */
 
 // If this file is called directly, abort.
@@ -40,7 +42,7 @@ if (! defined('WPINC')) {
 
 // Define Version
 if (! defined('TOTOP_VERSION')) {
-	define('TOTOP_VERSION', '3.2');
+	define('TOTOP_VERSION', '3.3');
 }
 
 // The URL of the directory that contains the plugin
@@ -58,25 +60,6 @@ if (! defined('TOTOP_PATH')) {
 if (! defined('TOTOP_BASENAME')) {
 	define('TOTOP_BASENAME', plugin_basename(__FILE__));
 }
-
-function activate_to_top() // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- WordPress activation hook convention; plugin slug used as suffix.
-{
-	require_once plugin_dir_path(__FILE__) . 'includes/class-to-top-activator.php';
-	To_Top_Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-to-top-deactivator.php
- */
-function deactivate_to_top() // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- WordPress deactivation hook convention; plugin slug used as suffix.
-{
-	require_once plugin_dir_path(__FILE__) . 'includes/class-to-top-deactivator.php';
-	To_Top_Deactivator::deactivate();
-}
-
-register_activation_hook(__FILE__, 'activate_to_top');
-register_deactivation_hook(__FILE__, 'deactivate_to_top');
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -156,17 +139,20 @@ function to_top_default_options($option = null)
 
 	if (null === $option) {
 		return apply_filters('to_top_options', $default_options);
-	} else {
-		return $default_options[$option];
 	}
+
+	return isset($default_options[$option]) ? $default_options[$option] : null;
 }
 
 /* CTP tabs removal options */
 require plugin_dir_path(__FILE__) . 'admin/inc/ctp-tabs-removal.php';
 
 $ctp_options = ctp_get_options(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- file-scope variable for CTP tab conditional; no class context available.
-if (1 === $ctp_options['theme_plugin_tabs']) {
-	/* Adds Catch Themes tab in Add theme page and Themes by Catch Themes in Customizer's change theme option. */
+if (is_admin() && 1 === (int) $ctp_options['theme_plugin_tabs']) {
+	/*
+	 * Adds Catch Themes tab in Add theme page and Themes by Catch Themes in Customizer's change theme option.
+	 * Every hook registered in there is admin/AJAX only, so it is never needed on the front end.
+	 */
 	if (! class_exists('CatchThemesThemePlugin') && ! function_exists('add_our_plugins_tab')) {
 		require plugin_dir_path(__FILE__) . 'admin/inc/CatchThemesThemePlugin.php';
 	}

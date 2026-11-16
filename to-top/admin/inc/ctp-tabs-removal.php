@@ -14,7 +14,11 @@ if (! function_exists('ctp_register_settings')) {
 		register_setting(
 			'ctp-group',
 			'ctp_options',
-			array()
+			array(
+				'type'              => 'array',
+				'sanitize_callback' => 'ctp_sanitize_options',
+				'default'           => ctp_default_options(),
+			)
 		);
 	}
 }
@@ -53,6 +57,27 @@ if (! function_exists('ctp_default_options')) {
 	}
 }
 
+if (! function_exists('ctp_sanitize_options')) {
+	/**
+	 * Keeps ctp_options to its own keys, each stored as 0 or 1.
+	 *
+	 * @since 3.3
+	 * @param mixed $input Raw option value.
+	 * @return array Sanitized option value.
+	 */
+	function ctp_sanitize_options($input) // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- ctp_ is the established prefix for this shared CTP utility.
+	{
+		$input  = (array) $input;
+		$output = array();
+
+		foreach (ctp_default_options() as $key => $default) {
+			$output[$key] = array_key_exists($key, $input) ? (empty($input[$key]) ? 0 : 1) : (int) $default;
+		}
+
+		return $output;
+	}
+}
+
 if (! function_exists('ctp_switch')) {
 	/**
 	 * Return $string
@@ -71,7 +96,12 @@ if (! function_exists('ctp_switch')) {
 			}
 			$value = (isset( $_POST['value'] ) && 'true' === sanitize_text_field( wp_unslash( $_POST['value'] ) ) ) ? 1 : 0;
 
-			$option_name = isset( $_POST['option_name'] ) ? sanitize_text_field( wp_unslash( $_POST['option_name'] ) ) : '';
+			$option_name = isset( $_POST['option_name'] ) ? sanitize_key( wp_unslash( $_POST['option_name'] ) ) : '';
+
+			// Only the keys this plugin actually owns may be written.
+			if ( ! array_key_exists( $option_name, ctp_default_options() ) ) {
+				wp_die(esc_html__('Invalid option.', 'to-top'));
+			}
 
 			$option_value = ctp_get_options();
 

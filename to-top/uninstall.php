@@ -30,9 +30,26 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-$option_name = 'to_top_options'; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- file-scope variable in uninstall.php; no class context available.
+$options = array( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- file-scope variable in uninstall.php; no class context available.
+	'to_top_options',
+	'ctp_options',
+);
 
-delete_option( $option_name );
+if ( ! is_multisite() ) {
+	// For Single site
+	foreach ( $options as $option ) {
+		delete_option( $option );
+	}
+} else {
+	// For Multisite
+	$sites = get_sites( array( 'fields' => 'ids', 'number' => 0 ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- file-scope variable in uninstall.php.
 
-// For site options in Multisite
-delete_site_option( $option_name );
+	foreach ( $sites as $blog_id ) {
+		switch_to_blog( $blog_id );
+		foreach ( $options as $option ) {
+			// These are per-blog options saved with update_option(), so remove them with delete_option() inside each blog, not delete_site_option().
+			delete_option( $option );
+		}
+		restore_current_blog();
+	}
+}

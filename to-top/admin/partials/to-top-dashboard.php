@@ -17,9 +17,6 @@ if (! defined('ABSPATH')) {
  */
 ?>
 
-<!-- For Facebook -->
-<!-- <div id="fb-root"></div> -->
-
 <?php if (isset($_GET['settings-updated'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- standard WordPress settings-updated flag; value is never used. ?>
     <div id="message" class="notice updated fade">
         <p><strong><?php esc_html_e('Plugin Options Saved.', 'to-top') ?></strong></p>

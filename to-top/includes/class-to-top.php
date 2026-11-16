@@ -66,7 +66,6 @@ class To_Top
 		$this->version = TOTOP_VERSION;
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -77,7 +76,6 @@ class To_Top
 	 * Include the following files that make up the plugin:
 	 *
 	 * - To_Top_Loader. Orchestrates the hooks of the plugin.
-	 * - To_Top_i18n. Defines internationalization functionality.
 	 * - To_Top_Admin. Defines all hooks for the admin area.
 	 * - To_Top_Public. Defines all hooks for the public side of the site.
 	 *
@@ -97,12 +95,6 @@ class To_Top
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-to-top-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-to-top-i18n.php';
-
-		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-to-top-admin.php';
@@ -115,23 +107,6 @@ class To_Top
 		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-to-top-public.php';
 
 		$this->loader = new To_Top_Loader();
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the To_Top_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0
-	 * @access   private
-	 */
-	private function set_locale()
-	{
-
-		$plugin_i18n = new To_Top_i18n();
-
-		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
 	/**
@@ -180,7 +155,6 @@ class To_Top
 
 		$this->loader->add_action('wp_footer', $plugin_public, 'public_display');
 		$this->loader->add_action('admin_footer', $plugin_public, 'public_display');
-		$this->loader->add_filter('script_loader_tag', $plugin_public, 'make_script_async', 10, 3);
 	}
 
 	/**

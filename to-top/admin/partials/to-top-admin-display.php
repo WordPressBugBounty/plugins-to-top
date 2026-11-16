@@ -12,7 +12,7 @@ if (! defined('ABSPATH')) {
 
     <div class="catchp-content-wrapper">
         <div class="catchp_widget_settings">
-            <form id="catch-instagram-feed-gallery-widget-main" method="post" action="options.php">
+            <div id="to-top-settings-main">
 
                 <h2 class="nav-tab-wrapper">
                     <a class="nav-tab nav-tab-active" id="dashboard-tab" href="#dashboard"><?php esc_html_e('Dashboard', 'to-top'); ?></a>
@@ -81,7 +81,7 @@ if (! defined('ABSPATH')) {
                     </div><!-- content-wrapper -->
                 </div> <!-- Featured -->
 
-            </form><!-- #catch-instagram-feed-gallery-widget-main -->
+            </div><!-- #to-top-settings-main -->
 
         </div><!-- .catchp_widget_settings -->
 
